@@ -10,6 +10,7 @@ import numpy as np
 import config as cfg
 from config import *
 from render import text, panel, draw_hand
+from storage import clean_name
 
 DWELL_SECONDS = 1.2
 CARD_W, CARD_H, CARD_GAP, CARD_Y = 360, 370, 40, 190
@@ -157,11 +158,44 @@ def choose_mode(worker):
         cv2.setMouseCallback(WIN, lambda *a: None)
 
 
-def show_message(worker, msg):
-    """Pinta un mensaje de una linea (por ejemplo antes de pedir el nombre por consola)."""
-    with worker.lock:
-        bg = worker.bg.copy()
-    panel(bg, 0, 0, W, H, (0, 0, 0), 0.6)
-    text(bg, msg, W // 2, H // 2, 0.9, WHITE, 2, "c")
-    cv2.imshow(WIN, bg)
-    cv2.waitKey(30)
+def ask_names_window(worker, n=1):
+    """Pide el nombre de cada jugador escribiendo en la ventana. Devuelve [nombre1, nombre2] o None si se pulsa ESC."""
+    names = []
+    for i in range(n):
+        buf = ""
+        title = "ESCRIBE TU NOMBRE" if n == 1 else f"NOMBRE DEL JUGADOR {i + 1}"
+        while True:
+            t0 = time.time()
+            with worker.lock:
+                bg = worker.bg.copy()
+            panel(bg, 0, 0, W, H, (0, 0, 0), 0.7)
+            text(bg, title, W // 2, 210, 1.6, YELLOW, 4, "c")
+            if n == 1:
+                text(bg, "Con este nombre se guarda tu progreso y se compara con tus sesiones anteriores",
+                     W // 2, 262, 0.7, WHITE, 1, "c")
+            x1, y1, x2, y2 = W // 2 - 260, 310, W // 2 + 260, 390
+            panel(bg, x1, y1, x2, y2, (40, 40, 40), 0.9)
+            cv2.rectangle(bg, (x1, y1), (x2, y2), YELLOW, 3, cv2.LINE_AA)
+            if buf:
+                text(bg, buf, x1 + 20, y1 + 55, 1.3, WHITE, 3)
+            else:
+                text(bg, f"Jugador {i + 1}", x1 + 20, y1 + 55, 1.3, (130, 130, 130), 2)
+            if int(t0 * 2) % 2 == 0:                      # cursor parpadeante
+                cx = x1 + 20 + (cv2.getTextSize(buf, FONT, 1.3, 3)[0][0] if buf else 0) + 4
+                cv2.line(bg, (cx, y1 + 18), (cx, y1 + 62), YELLOW, 3, cv2.LINE_AA)
+            text(bg, "Escribe con el teclado (maximo 12 letras)", W // 2, 440, 0.65, (200, 200, 200), 1, "c")
+            text(bg, "ENTER: continuar     RETROCESO: borrar     ESC: salir", W // 2, 480, 0.65, (200, 200, 200), 1, "c")
+            cv2.imshow(WIN, bg)
+            key = cv2.waitKey(max(1, int(1000 / FPS_TARGET - (time.time() - t0) * 1000))) & 0xFF
+            if key == 27:
+                return None
+            if key in (13, 10):
+                break
+            if key in (8, 127):
+                buf = buf[:-1]
+            elif 32 <= key < 127 and len(buf) < 12:
+                buf += chr(key)
+        names.append(clean_name(buf, f"Jugador {i + 1}"))
+    while len(names) < 2:
+        names.append(names[0])
+    return names

@@ -22,6 +22,16 @@ INFO = {
 }
 GREY = (120, 120, 120)
 
+# ---- UMBRALES (cambia aqui para calibrar las notas) ----
+# Una sesion media debe dar notas de 50-70; una buena, mas de 80.
+ROM_100 = 170.0            # grados de rango medio de los dedos que dan 100 puntos
+VEL_100 = 700.0            # grados/s de velocidad de apertura/cierre que dan 100
+TEMBLOR_POR_PUNTO = 10.0   # puntos que resta cada 1 % de temblor
+EXPLOSION_PUNTOS = 12.0    # puntos que resta cada explosion
+REACCION_100_MS = 600.0    # reaccion (ms) que da 100 puntos
+REACCION_0_MS = 3600.0     # reaccion (ms) que da 0 puntos (frenar toda la mano no es un reflejo instantaneo)
+FATIGA_POR_PUNTO = 2.0     # puntos que resta cada 1 % de caida entre el primer y el ultimo tercio
+
 
 def _n(v):
     try:
@@ -45,23 +55,23 @@ def scores(row):
     s = {}
     v = _avg(row, "rom_medio_deg")
     if v is not None:
-        s["Movimiento"] = _clamp(v / 170.0 * 100)
+        s["Movimiento"] = _clamp(v / ROM_100 * 100)
     v = _avg(row, "vel_max_deg_s")
     if v is not None:
-        s["Rapidez"] = _clamp(v / 600.0 * 100)
+        s["Rapidez"] = _clamp(v / VEL_100 * 100)
     v = _avg(row, "temblor_rms_pct")
     if v is not None:
-        s["Estabilidad"] = _clamp(100 - v * 10)
+        s["Estabilidad"] = _clamp(100 - v * TEMBLOR_POR_PUNTO)
     v = _n(row.get("explosiones"))
     if v is not None:
-        s["Control"] = _clamp(100 - v * 12)
+        s["Control"] = _clamp(100 - v * EXPLOSION_PUNTOS)
     v = _n(row.get("reaccion_media_ms"))
     if v is not None:
-        s["Reaccion"] = _clamp(100.0 * (2500 - v) / 2000)
+        s["Reaccion"] = _clamp(100.0 * (REACCION_0_MS - v) / (REACCION_0_MS - REACCION_100_MS))
     drops = [_n(row.get("fatiga_caida_rom_pct")), _n(row.get("fatiga_caida_ritmo_pct"))]
     drops = [d for d in drops if d is not None]
     if drops:
-        s["Resistencia"] = _clamp(100 - max(0.0, max(drops)) * 2)
+        s["Resistencia"] = _clamp(100 - max(0.0, max(drops)) * FATIGA_POR_PUNTO)
     v = _n(row.get("simetria_rom_pct"))
     if v is not None:
         s["Equilibrio"] = _clamp(v)
@@ -121,7 +131,7 @@ def draw_summary(canvas, name, sm):
     cur, prev = sm["cur"], sm["prev"]
     names = list(cur)
     # ---- barras: sesion anterior (gris) y hoy (color) ----
-    BX, BW = 360, 330
+    BX, BW = 350, 300
     rh = min(78, 470 // max(1, len(names)))
     for i, k in enumerate(names):
         yt = 135 + i * rh
@@ -138,7 +148,7 @@ def draw_summary(canvas, name, sm):
         cv2.rectangle(canvas, (BX, by), (BX + int(BW * v / 100), by + 22), level_color(v), -1)
         text(canvas, str(round(v)), BX + BW + 14, by + 20, 0.8, WHITE, 2)
         if prev and k in prev:
-            _delta_tag(canvas, BX + BW + 70, by + 20, round(v) - round(prev[k]))
+            _delta_tag(canvas, BX + BW + 62, by + 20, round(v) - round(prev[k]))
 
     # ---- nota global + evolucion ----
     panel(canvas, 790, 120, 1240, 655, (30, 30, 30), 0.6)

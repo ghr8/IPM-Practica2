@@ -29,10 +29,10 @@ from players import fresh_players, update_player
 from render import draw_scene, text
 from screens import draw_hud, draw_waiting, draw_countdown, draw_finished, draw_report
 from resumen import draw_summary
-from storage import ask_names, load_ranking, add_record, save_session, history
+from storage import load_ranking, add_record, save_session, history
 import metrics as metrics_mod
 import resumen
-from menu import choose_mode, show_message, toggle_fullscreen
+from menu import choose_mode, ask_names_window, toggle_fullscreen
 from metrics import SessionMetrics
 from vision import VisionWorker, ensure_model
 from track import sway
@@ -71,8 +71,13 @@ def main():
         cv2.destroyAllWindows()
         return
     cfg.configure_mode(mode, args.turbo_auto, not args.sin_obstaculos)
-    show_message(worker, "Escribe el nombre del jugador en la consola (ventana negra)")
-    NAMES[:] = ask_names(cfg.NP)
+    names = ask_names_window(worker, cfg.NP)     # nombre escrito en la propia ventana
+    if names is None:                            # ESC
+        worker.running = False
+        worker.join(timeout=2)
+        cv2.destroyAllWindows()
+        return
+    NAMES[:] = names
     ranking = load_ranking(cfg.MODE)
     new_idx = -1
 
