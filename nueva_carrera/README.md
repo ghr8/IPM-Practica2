@@ -9,8 +9,19 @@ del coche: **verde = dedo extendido (empuja)**, rojo = dedo doblado. El pulgar a
 
 ## 1. Propósito del juego
 
-_(Completar: problema que aborda, a quién va dirigido, qué ejercicios/medidas incluye
-y por qué un juego ayuda a la adherencia al tratamiento.)_
+Este videojuego serio está pensado como apoyo a la **rehabilitación de la mano**, por ejemplo tras un ictus o en personas mayores con pérdida de movilidad fina y fragilidad. Los ejercicios de rehabilitación suelen ser repetitivos y poco motivadores, y eso baja la adherencia al tratamiento. Convertirlos en una carrera de coches, con una meta y un ranking, busca que el paciente quiera repetir la sesión.
+
+El coche se controla solo con las manos, sin mando, usando la cámara web y MediaPipe. Cada dedo es una rueda, y cada mecánica trabaja un ejercicio real:
+
+- **Flexión y extensión individual de los dedos:** abrir y cerrar cada dedo para acelerar y girar. Seguir las curvas obliga a graduar el movimiento, así que no se puede ganar con la mano quieta.
+- **Coordinación bimanual:** en modo bimanual la mano izquierda gobierna las ruedas izquierdas y la derecha las derechas. En modo unimanual se rehabilita una sola mano.
+- **Oposición del pulgar:** meter el pulgar en la palma gasta una carga de nitro.
+- **Tiempo de reacción e inhibición del movimiento:** ante un obstáculo hay que frenar y quedarse quieto 1 s.
+- **Individualización de dedos:** cruzar índice y corazón penaliza.
+
+Mientras se juega, el sistema registra métricas orientativas: rango de movimiento por dedo, velocidad y ritmo de apertura y cierre, temblor, fatiga a lo largo de la sesión, simetría entre manos y tiempo de reacción. Se guardan en un historial y en un fichero de estado actual por paciente, para que un profesional pueda comparar sesiones. Estas medidas se inspiran en pruebas conocidas como el *finger tapping test* o el *Nine-Hole Peg Test*, y la lentitud motora es uno de los criterios de fragilidad de Fried.
+
+**Limitaciones:** el juego no diagnostica ni sustituye a un fisioterapeuta ni a las pruebas clínicas validadas. Con una webcam y landmarks en 2D las medidas sirven para **comparar sesiones del mismo paciente en las mismas condiciones**, no para dar valores clínicos absolutos. Sobre la fragilidad solo medimos indicadores indirectos de la mano (lentitud, fatiga), no la fragilidad completa.
 
 ## 2. Requisitos
 
@@ -113,7 +124,6 @@ storage.py           Ranking, entrada por consola y carpeta de pacientes (inform
 render.py            Dibujo de la escena 3D, coche, obstáculo, manos y minimapa
 screens.py           HUD, pantallas de espera/cuenta atrás/final e informe
 effects.py           Partículas y temblor de pantalla
-test_sin_camara.py   Pruebas automáticas sin cámara (manos sintéticas)
 download_model.py    Descarga el modelo de MediaPipe
 requirements.txt     Dependencias            setup.* / run.*   Instalación y ejecución
 models/              hand_landmarker.task

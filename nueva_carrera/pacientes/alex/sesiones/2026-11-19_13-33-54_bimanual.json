@@ -1,0 +1,143 @@
+{
+ "paciente": "Alex",
+ "fecha": "2026-11-19 13:33:54",
+ "modo": "bimanual",
+ "tiempo_carrera_s": 74.65,
+ "explosiones": 5,
+ "fuera_de_pista": 2,
+ "dedos_cruzados": 0,
+ "choques_obstaculo": 3,
+ "pulgar_repeticiones": 10,
+ "manos": {
+  "izquierda": {
+   "muestras": 2218,
+   "deteccion_pct": 99.5,
+   "rom_deg": {
+    "indice": 145.3,
+    "corazon": 152.8,
+    "anular": 146.5,
+    "menique": 130.7
+   },
+   "rom_medio_deg": 143.8,
+   "vel_max_deg_s": 535.5,
+   "ciclos_por_s": 0.51,
+   "temblor": {
+    "rms_pct_palma": 4.198,
+    "ratio_4_6hz": 0.057,
+    "f_dominante_hz": 3.8
+   }
+  },
+  "derecha": {
+   "muestras": 2223,
+   "deteccion_pct": 99.7,
+   "rom_deg": {
+    "indice": 175.6,
+    "corazon": 178.6,
+    "anular": 175.5,
+    "menique": 155.9
+   },
+   "rom_medio_deg": 171.4,
+   "vel_max_deg_s": 410.6,
+   "ciclos_por_s": 0.44,
+   "temblor": {
+    "rms_pct_palma": 3.873,
+    "ratio_4_6hz": 0.045,
+    "f_dominante_hz": 3.8
+   }
+  }
+ },
+ "reaccion": {
+  "n_obstaculos": 7,
+  "choques": 3,
+  "media_ms": 2347,
+  "mediana_ms": 2486,
+  "min_ms": 1851,
+  "max_ms": 2758,
+  "parada_media_ms": 2995,
+  "cambio_2a_mitad_ms": -63,
+  "eventos": [
+   {
+    "n": 1,
+    "resultado": "choque",
+    "reaccion_ms": 1858,
+    "parada_ms": 2637,
+    "vel_inicial_pct": 72,
+    "dist_al_frenar_px": 214,
+    "t_inicio_s": 6.61
+   },
+   {
+    "n": 2,
+    "resultado": "ok",
+    "reaccion_ms": 2758,
+    "parada_ms": 3342,
+    "vel_inicial_pct": 94,
+    "dist_al_frenar_px": 113,
+    "t_inicio_s": 15.88
+   },
+   {
+    "n": 3,
+    "resultado": "choque",
+    "reaccion_ms": null,
+    "parada_ms": null,
+    "vel_inicial_pct": 91,
+    "dist_al_frenar_px": null,
+    "t_inicio_s": 23.4
+   },
+   {
+    "n": 4,
+    "resultado": "choque",
+    "reaccion_ms": 2519,
+    "parada_ms": 3179,
+    "vel_inicial_pct": 73,
+    "dist_al_frenar_px": 83,
+    "t_inicio_s": 42.5
+   },
+   {
+    "n": 5,
+    "resultado": "ok",
+    "reaccion_ms": 1851,
+    "parada_ms": 2482,
+    "vel_inicial_pct": 125,
+    "dist_al_frenar_px": 269,
+    "t_inicio_s": 51.21
+   },
+   {
+    "n": 6,
+    "resultado": "ok",
+    "reaccion_ms": 2644,
+    "parada_ms": 3259,
+    "vel_inicial_pct": 78,
+    "dist_al_frenar_px": 139,
+    "t_inicio_s": 59.13
+   },
+   {
+    "n": 7,
+    "resultado": "ok",
+    "reaccion_ms": 2452,
+    "parada_ms": 3069,
+    "vel_inicial_pct": 75,
+    "dist_al_frenar_px": 108,
+    "t_inicio_s": 66.63
+   }
+  ]
+ },
+ "fatiga": {
+  "rom_por_tercio_deg": [
+   157.8,
+   155.8,
+   156.3
+  ],
+  "ritmo_por_tercio": [
+   0.44,
+   0.47,
+   0.51
+  ],
+  "caida_rom_pct": 0.9,
+  "caida_ritmo_pct": -15.9
+ },
+ "aviso": "Metricas orientativas obtenidas con una camara web; no son un diagnostico. Sirven para comparar sesiones del mismo paciente en las mismas condiciones.",
+ "simetria": {
+  "rom_pct": 83.9,
+  "actividad_pct": 97.3
+ }
+}

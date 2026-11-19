@@ -28,7 +28,11 @@ from effects import PARTS, SHAKE, update_particles, draw_particles
 from players import fresh_players, update_player
 from render import draw_scene, text
 from screens import draw_hud, draw_waiting, draw_countdown, draw_finished, draw_report
-from storage import ask_mode, ask_names, load_ranking, add_record, save_session
+from resumen import draw_summary
+from storage import ask_names, load_ranking, add_record, save_session, history
+import metrics as metrics_mod
+import resumen
+from menu import choose_mode, show_message, toggle_fullscreen
 from metrics import SessionMetrics
 from vision import VisionWorker, ensure_model
 from track import sway
@@ -47,12 +51,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    mode = args.modo or ask_mode()
-    cfg.configure_mode(mode, args.turbo_auto, not args.sin_obstaculos)
-    NAMES[:] = ask_names(cfg.NP)
     ensure_model()
-    ranking = load_ranking(cfg.MODE)
-    new_idx = -1
     worker = VisionWorker(args.camara)
     worker.start()
     print("Arrancando camara y modelo ...")
@@ -64,7 +63,18 @@ def main():
 
     cv2.namedWindow(WIN, cv2.WINDOW_NORMAL)
     cv2.resizeWindow(WIN, W, H)
-    fullscreen = False
+
+    mode = args.modo or choose_mode(worker)      # menu interactivo con el dedo
+    if mode is None:                             # ESC en el menu
+        worker.running = False
+        worker.join(timeout=2)
+        cv2.destroyAllWindows()
+        return
+    cfg.configure_mode(mode, args.turbo_auto, not args.sin_obstaculos)
+    show_message(worker, "Escribe el nombre del jugador en la consola (ventana negra)")
+    NAMES[:] = ask_names(cfg.NP)
+    ranking = load_ranking(cfg.MODE)
+    new_idx = -1
 
     state = WAITING
     players = fresh_players()
@@ -72,8 +82,8 @@ def main():
     countdown_start = race_start = 0.0
     lost = 0.0
     winner = None
-    metrics = report = paths = None
-    show_report = False
+    metrics = report = paths = summary = None
+    show_report = show_detail = False
     fps = 60.0
     last = time.time()
 
@@ -122,8 +132,8 @@ def main():
                 if cfg.NP == 1:
                     metrics = SessionMetrics(NAMES[0], cfg.MODE, hand_labels())
                     metrics.start(now)
-                    report = paths = None
-                    show_report = False
+                    report = paths = summary = None
+                    show_report = show_detail = False
 
         elif state == RACING:
             if metrics is not None:
@@ -137,7 +147,9 @@ def main():
                     if metrics is not None:             # un jugador: informe de la sesion + estado del paciente
                         try:
                             report = metrics.finish(p, p["finish"])
+                            prev_rows = history(NAMES[0], cfg.MODE)      # antes de guardar la de hoy
                             paths = save_session(report)
+                            summary = resumen.build(metrics_mod.flat(report), prev_rows)
                             print("Informe guardado en", paths["estado"])
                         except Exception as e:           # nunca romper el final de la carrera por un fallo al guardar
                             print("No se pudo guardar el informe:", e)
@@ -167,8 +179,10 @@ def main():
         elif state == RACING and now - race_start < 0.9:
             text(canvas, "YA!", W // 2, int(H * 0.45), 6 + 4 * (now - race_start), GREEN, 14, "c")
         elif state == FINISHED:
-            if show_report and report is not None:
+            if show_detail and report is not None:
                 draw_report(canvas, report, paths)
+            elif show_report and summary is not None:
+                draw_summary(canvas, NAMES[0], summary)
             else:
                 draw_finished(canvas, players, winner, now, ranking, new_idx)
                 draw_particles(canvas)
@@ -187,20 +201,21 @@ def main():
         key = cv2.waitKey(wait) & 0xFF
         if key == 27:
             break
-        if key in (ord("m"), ord("M")) and state == FINISHED and report is not None:
-            show_report = not show_report
+        if key in (ord("m"), ord("M")) and state == FINISHED and summary is not None:
+            show_report, show_detail = not (show_report or show_detail), False
+        if key in (ord("d"), ord("D")) and state == FINISHED and report is not None and (show_report or show_detail):
+            show_detail = not show_detail
+            show_report = not show_detail
         if (key == 13 and state == FINISHED) or key in (ord("r"), ord("R")):
             players = fresh_players()
             ready = [0.0, 0.0]
             winner = None
-            metrics = report = paths = None
-            show_report = False
+            metrics = report = paths = summary = None
+            show_report = show_detail = False
             PARTS.clear()
             state = WAITING
         if key in (ord("f"), ord("F")):
-            fullscreen = not fullscreen
-            cv2.setWindowProperty(WIN, cv2.WND_PROP_FULLSCREEN,
-                                  cv2.WINDOW_FULLSCREEN if fullscreen else cv2.WINDOW_NORMAL)
+            toggle_fullscreen()
 
     worker.running = False
     worker.join(timeout=2)

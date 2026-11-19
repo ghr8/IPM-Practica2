@@ -177,7 +177,7 @@ def draw_finished(canvas, players, winner, now, ranking, new_idx):
         text(canvas, f"{r['time']:.1f}s", W // 2 + 130, y, 0.8, col, 2, "r")
         text(canvas, str(r.get("date", "")), W // 2 + 240, y, 0.6, (190, 190, 190), 1, "r")
     if len(players) == 1:
-        text(canvas, "M: informe de sesion", W // 2, H - 68, 0.9, (80, 200, 255), 2, "c")
+        text(canvas, "M: ver mi progreso", W // 2, H - 68, 0.9, (80, 200, 255), 2, "c")
     text(canvas, "ENTER: revancha     ESC: salir", W // 2, H - 30, 1.0, YELLOW, 2, "c")
 
     # Confeti
@@ -195,7 +195,7 @@ def _f(v, suf="", nd=0):
 def draw_report(canvas, rep, paths=None):
     """Informe de la sesion (modos de un jugador). Se abre con la tecla M en la pantalla final."""
     panel(canvas, 0, 0, W, H, (0, 0, 0), 0.94)
-    text(canvas, f"INFORME DE SESION - {rep['paciente'].upper()}", W // 2, 52, 1.1, YELLOW, 3, "c")
+    text(canvas, f"DETALLE TECNICO - {rep['paciente'].upper()}", W // 2, 52, 1.1, YELLOW, 3, "c")
     y = [100]
 
     def line(s, col=WHITE, sc=0.62, x=50):
@@ -238,5 +238,5 @@ def draw_report(canvas, rep, paths=None):
         line(f"Simetria entre manos (100 % = igual): rango {_f(sim['rom_pct'], ' %')}  |  actividad {_f(sim['actividad_pct'], ' %')}")
     if paths:
         text(canvas, "Guardado en: " + paths["estado"].replace("\\", "/")[-70:], 50, H - 62, 0.5, (160, 220, 160), 1)
-    text(canvas, "M: volver    ENTER: revancha    ESC: salir        Metricas orientativas, no son un diagnostico",
+    text(canvas, "M: ver mi progreso   ENTER: revancha   ESC: salir        Detalle tecnico para profesionales",
          W // 2, H - 28, 0.6, (190, 190, 190), 1, "c")

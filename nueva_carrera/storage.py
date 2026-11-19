@@ -109,6 +109,18 @@ def _last_row(csv_path, mode):
     return rows[-1] if rows else None
 
 
+def history(name, mode):
+    """Sesiones anteriores del paciente en ese modo (lista de filas del CSV, la mas antigua primero)."""
+    path = os.path.join(PATIENTS_DIR, slug(name), "historial.csv")
+    if not os.path.exists(path):
+        return []
+    try:
+        with open(path, newline="", encoding="utf-8") as f:
+            return [r for r in csv.DictReader(f) if r.get("modo") == mode]
+    except Exception:
+        return []
+
+
 def save_session(rep):
     """Guarda el informe y actualiza el estado actual del paciente. Devuelve las rutas escritas (dict)."""
     folder = os.path.join(PATIENTS_DIR, slug(rep["paciente"]))

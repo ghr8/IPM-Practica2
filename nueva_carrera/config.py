@@ -21,7 +21,7 @@ ROAD_W = W * 0.24
 SWAY_AMP = W * 0.20        # desvio de la carretera: mayor que ROAD_W/2, asi que ir recto SIEMPRE te saca
 SWAY_LEN = 2500.0         # longitud de una curva completa (menor = curvas mas seguidas)
 CLAMP_X = W / 4 - 50
-MAX_SPEED = 520.0          # px/s con las 4 ruedas
+MAX_SPEED = 350.0          # px/s con las 4 ruedas
 STEER_RATE = W * 0.16      # px/s por cada rueda de diferencia
 TRACK_LENGTH = 12000.0
 CAR_Y = int(H * 0.86)
