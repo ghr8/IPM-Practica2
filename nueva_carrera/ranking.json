@@ -1,5 +1,29 @@
 [
  {
+  "name": "alex",
+  "time": 36.58,
+  "date": "19/11/2026",
+  "mode": "duelo"
+ },
+ {
+  "name": "alex",
+  "time": 43.86,
+  "date": "19/11/2026",
+  "mode": "duelo"
+ },
+ {
+  "name": "alex",
+  "time": 56.88,
+  "date": "19/11/2026",
+  "mode": "bimanual"
+ },
+ {
+  "name": "german",
+  "time": 58.22,
+  "date": "19/11/2026",
+  "mode": "unimanual"
+ },
+ {
   "name": "Alex",
   "time": 61.85,
   "date": "19/11/2026",
@@ -8,6 +32,12 @@
  {
   "name": "Alex",
   "time": 62.96,
+  "date": "19/11/2026",
+  "mode": "bimanual"
+ },
+ {
+  "name": "german",
+  "time": 65.6,
   "date": "19/11/2026",
   "mode": "bimanual"
  },

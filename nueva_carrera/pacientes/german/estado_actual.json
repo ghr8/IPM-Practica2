@@ -1,0 +1,74 @@
+{
+ "paciente": "german",
+ "actualizado": "2026-11-19 14:48:53",
+ "sesiones_totales": 2,
+ "modo": "bimanual",
+ "metricas_actuales": {
+  "fecha": "2026-11-19 14:48:53",
+  "modo": "bimanual",
+  "tiempo_carrera_s": 65.6,
+  "explosiones": 2,
+  "fuera_de_pista": 1,
+  "dedos_cruzados": 0,
+  "choques_obstaculo": 1,
+  "pulgar_repeticiones": 3,
+  "reaccion_n": 7,
+  "reaccion_media_ms": 2430,
+  "reaccion_mediana_ms": 2592,
+  "reaccion_min_ms": 1209,
+  "reaccion_max_ms": 3133,
+  "parada_media_ms": 3014,
+  "reaccion_cambio_2a_mitad_ms": -768,
+  "fatiga_caida_rom_pct": 11.6,
+  "fatiga_caida_ritmo_pct": -3.4,
+  "simetria_rom_pct": 88.8,
+  "simetria_actividad_pct": 95.6,
+  "izq_rom_medio_deg": 145.8,
+  "izq_vel_max_deg_s": 252.5,
+  "izq_ciclos_por_s": 0.32,
+  "izq_deteccion_pct": 100.0,
+  "izq_rom_indice": 158.5,
+  "izq_rom_corazon": 154.4,
+  "izq_rom_anular": 145.3,
+  "izq_rom_menique": 125.1,
+  "der_rom_medio_deg": 129.4,
+  "der_vel_max_deg_s": 215.1,
+  "der_ciclos_por_s": 0.38,
+  "der_deteccion_pct": 100.0,
+  "der_rom_indice": 134.1,
+  "der_rom_corazon": 138.1,
+  "der_rom_anular": 134.3,
+  "der_rom_menique": 111.0
+ },
+ "reaccion": {
+  "n_obstaculos": 7,
+  "choques": 1,
+  "media_ms": 2430,
+  "mediana_ms": 2592,
+  "min_ms": 1209,
+  "max_ms": 3133,
+  "parada_media_ms": 3014,
+  "cambio_2a_mitad_ms": -768
+ },
+ "fatiga": {
+  "rom_por_tercio_deg": [
+   146.9,
+   133.4,
+   129.8
+  ],
+  "ritmo_por_tercio": [
+   0.34,
+   0.35,
+   0.35
+  ],
+  "caida_rom_pct": 11.6,
+  "caida_ritmo_pct": -3.4
+ },
+ "simetria": {
+  "rom_pct": 88.8,
+  "actividad_pct": 95.6
+ },
+ "cambio_vs_sesion_anterior": null,
+ "comparado_con": null,
+ "aviso": "Metricas orientativas obtenidas con una camara web; no son un diagnostico. Sirven para comparar sesiones del mismo paciente en las mismas condiciones."
+}

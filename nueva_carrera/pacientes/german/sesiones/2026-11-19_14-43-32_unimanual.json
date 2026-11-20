@@ -1,0 +1,117 @@
+{
+ "paciente": "german",
+ "fecha": "2026-11-19 14:43:32",
+ "modo": "unimanual",
+ "tiempo_carrera_s": 58.22,
+ "explosiones": 2,
+ "fuera_de_pista": 0,
+ "dedos_cruzados": 0,
+ "choques_obstaculo": 2,
+ "pulgar_repeticiones": 7,
+ "manos": {
+  "mano": {
+   "muestras": 438,
+   "deteccion_pct": 100.0,
+   "rom_deg": {
+    "indice": 151.3,
+    "corazon": 133.5,
+    "anular": 128.9,
+    "menique": 109.8
+   },
+   "rom_medio_deg": 130.9,
+   "vel_max_deg_s": 251.3,
+   "ciclos_por_s": 0.19,
+   "temblor": null
+  }
+ },
+ "reaccion": {
+  "n_obstaculos": 7,
+  "choques": 2,
+  "media_ms": 2084,
+  "mediana_ms": 2112,
+  "min_ms": 1430,
+  "max_ms": 2757,
+  "parada_media_ms": 3036,
+  "cambio_2a_mitad_ms": 360,
+  "eventos": [
+   {
+    "n": 1,
+    "resultado": "ok",
+    "reaccion_ms": 1430,
+    "parada_ms": 4051,
+    "vel_inicial_pct": 78,
+    "dist_al_frenar_px": 505,
+    "t_inicio_s": 6.48
+   },
+   {
+    "n": 2,
+    "resultado": "choque",
+    "reaccion_ms": 2757,
+    "parada_ms": null,
+    "vel_inicial_pct": 75,
+    "dist_al_frenar_px": 62,
+    "t_inicio_s": 15.15
+   },
+   {
+    "n": 3,
+    "resultado": "choque",
+    "reaccion_ms": null,
+    "parada_ms": null,
+    "vel_inicial_pct": 79,
+    "dist_al_frenar_px": null,
+    "t_inicio_s": 23.1
+   },
+   {
+    "n": 4,
+    "resultado": "ok",
+    "reaccion_ms": 1524,
+    "parada_ms": 2279,
+    "vel_inicial_pct": 87,
+    "dist_al_frenar_px": 211,
+    "t_inicio_s": 30.39
+   },
+   {
+    "n": 5,
+    "resultado": "ok",
+    "reaccion_ms": 1729,
+    "parada_ms": 2509,
+    "vel_inicial_pct": 81,
+    "dist_al_frenar_px": 241,
+    "t_inicio_s": 36.31
+   },
+   {
+    "n": 6,
+    "resultado": "ok",
+    "reaccion_ms": 2568,
+    "parada_ms": 3206,
+    "vel_inicial_pct": 75,
+    "dist_al_frenar_px": 119,
+    "t_inicio_s": 43.06
+   },
+   {
+    "n": 7,
+    "resultado": "ok",
+    "reaccion_ms": 2495,
+    "parada_ms": 3135,
+    "vel_inicial_pct": 77,
+    "dist_al_frenar_px": 130,
+    "t_inicio_s": 50.08
+   }
+  ]
+ },
+ "fatiga": {
+  "rom_por_tercio_deg": [
+   129.9,
+   125.2,
+   128.0
+  ],
+  "ritmo_por_tercio": [
+   0.22,
+   0.17,
+   0.17
+  ],
+  "caida_rom_pct": 1.4,
+  "caida_ritmo_pct": 20.6
+ },
+ "aviso": "Metricas orientativas obtenidas con una camara web; no son un diagnostico. Sirven para comparar sesiones del mismo paciente en las mismas condiciones."
+}
