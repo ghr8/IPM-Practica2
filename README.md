@@ -4,7 +4,7 @@ Videojuego serio controlado por visión por computador (MediaPipe Hand Landmarke
 ejercicio de **rehabilitación de la mano**. Cada dedo (índice, corazón, anular, meñique) es una rueda
 del coche: **verde = dedo extendido (empuja)**, rojo = dedo doblado. El pulgar activa el nitro.
 
-> **Autores:** _Nombre Apellido Apellido_ y _Nombre Apellido Apellido_
+> **Autores:** Germán Hurtado Rodríguez y Alejandro Párraga Sanchez
 > **Asignatura:** Interacción Persona-Máquina (IPM) - Práctica 2
 
 ## 1. Propósito del juego
