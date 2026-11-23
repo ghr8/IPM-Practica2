@@ -161,8 +161,8 @@ Se mide con una webcam y landmarks en 2D: sirve para **comparar sesiones del mis
 
 | Problema | Solución |
 |----------|----------|
-| Dedos que parapadean | Con poca luz o contraluz un dedo cambia de estado en cada frame y el coche temblaba, entonces para solucionarlo exigimos dos frame seguidos |
+| Dedos que parapadean | Se mitiga exigiendo 2 frames seguidos para cambiarlo. |
 | El nitro se activa solo / no se activa | Mira el valor `pulgar X.XX` en pantalla y ajusta `THUMB_IN` / `THUMB_OUT`. |
-| Pérdida momentanea de la mano | Con movimientos muy rápidos la detección fallaba uno o dos frames y el coche se frenaba en seco. |
-| Cámara que no es 16:9 | Con una webcam 4:3 deformaba la imagen y desajustaba las coordenadas de la mano|
+| Pérdida momentanea de la mano | Se evita conservando la última pose con 0,25 segundos. |
+| Cámara que no es 16:9 | Se corrige recortando a 16:9 antes de procesar. |
 
