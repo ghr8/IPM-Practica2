@@ -161,8 +161,8 @@ Se mide con una webcam y landmarks en 2D: sirve para **comparar sesiones del mis
 
 | Problema | Solución |
 |----------|----------|
-| "No se pudo abrir la cámara" | Cierra otras apps que usen la webcam o prueba otra con `--camara 1`. |
+| Dedos que parapadean | Con poca luz o contraluz un dedo cambia de estado en cada frame y el coche temblaba, entonces para solucionarlo exigimos dos frame seguidos |
 | El nitro se activa solo / no se activa | Mira el valor `pulgar X.XX` en pantalla y ajusta `THUMB_IN` / `THUMB_OUT`. |
-| No detecta la mano | Más luz frontal, fondo no demasiado desordenado, mano a 40-80 cm de la cámara. |
-| Va lento | Cierra otros programas; la detección corre en un hilo aparte (se muestra "deteccion X fps" abajo a la derecha). |
-| Error al descargar el modelo | Descárgalo a mano (URL en `download_model.py`) y guárdalo en `models/hand_landmarker.task`. |
+| Pérdida momentanea de la mano | Con movimientos muy rápidos la detección fallaba uno o dos frames y el coche se frenaba en seco. |
+| Cámara que no es 16:9 | Con una webcam 4:3 deformaba la imagen y desajustaba las coordenadas de la mano|
+
